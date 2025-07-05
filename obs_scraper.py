@@ -31,11 +31,11 @@ def send_email(subject: str, body: str, recipient: str):
             smtp.starttls()
             smtp.login(user, password)
             smtp.send_message(msg)
-        print(f"📧 E-posta başarıyla gönderildi: {subject}")
+        print(f"📧 E-posta başarıyla gönderildi: {subject}", flush=True)
         return True
     except Exception as e:
-        print(f"❌ E-posta gönderilemedi: {e}")
-        print(traceback.format_exc())
+        print(f"❌ E-posta gönderilemedi: {e}", flush=True)
+        print(traceback.format_exc(), flush=True)
         return False
 
 # ——— OBS notlarını çekme ———
@@ -137,8 +137,8 @@ def job_check_and_notify():
             
     except Exception as e:
         error_msg = f"İşlem sırasında hata: {str(e)}"
-        print(f"❌ {error_msg}")
-        print(traceback.format_exc())
+        print(f"❌ {error_msg}", flush=True)
+        print(traceback.format_exc(), flush=True)
         return {
             "status": "error", 
             "message": error_msg,
@@ -161,4 +161,4 @@ def health_check():
 if __name__ == "__main__":
     # Lokal test için
     port = int(os.environ.get("PORT", 8080))
-    app.run(host="0.0.0.0", port=port, debug=False)
+    app.run(host="0.0.0.0", port=port, debug=True)
