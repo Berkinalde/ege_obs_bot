@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 from flask import Flask, jsonify
 from dotenv import load_dotenv
 import json
+import traceback
 
 # ——— Ortam değişkenlerini yükle ———
 load_dotenv()
@@ -34,6 +35,7 @@ def send_email(subject: str, body: str, recipient: str):
         return True
     except Exception as e:
         print(f"❌ E-posta gönderilemedi: {e}")
+        print(traceback.format_exc())
         return False
 
 # ——— OBS notlarını çekme ———
@@ -136,6 +138,7 @@ def job_check_and_notify():
     except Exception as e:
         error_msg = f"İşlem sırasında hata: {str(e)}"
         print(f"❌ {error_msg}")
+        print(traceback.format_exc())
         return {
             "status": "error", 
             "message": error_msg,
